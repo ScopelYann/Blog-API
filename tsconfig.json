@@ -1,0 +1,97 @@
+{
+  "compilerOptions": {
+    // === Configurações Básicas ===
+    "target": "ES2022", // Versão do JavaScript de saída (ES2022 para Node.js 16+)
+    "module": "CommonJS", // Sistema de módulos (CommonJS para Node.js)
+    "lib": ["ES2022"], // APIs JavaScript disponíveis
+    "outDir": "./dist", // Pasta de saída dos arquivos compilados
+    "rootDir": "./src", // Pasta raiz dos arquivos TypeScript
+
+    // === Resolução de Módulos ===
+    "moduleResolution": "node", // Resolução estilo Node.js
+    "baseUrl": "./src", // Base para caminhos relativos
+    "paths": {
+      // Aliases para imports
+      "@/*": ["*"],
+      "@models/*": ["models/*"],
+      "@controllers/*": ["controllers/*"],
+      "@services/*": ["services/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@utils/*": ["utils/*"],
+      "@config/*": ["config/*"],
+      "@types/*": ["types/*"]
+    },
+
+    "resolveJsonModule": true, // Permite importar arquivos JSON
+    "allowSyntheticDefaultImports": true, // Permite import default sintético
+    "esModuleInterop": true, // Compatibilidade entre ES modules e CommonJS
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+
+    // === Verificações de Tipos Rigorosas ===
+    "strict": true, // Ativa todas as verificações rigorosas
+    "noImplicitAny": true, // Erro para tipos 'any' implícitos
+    "strictNullChecks": true, // Verificação rigorosa de null/undefined
+    "strictFunctionTypes": true, // Verificação rigorosa de tipos de função
+    "strictBindCallApply": true, // Verificação rigorosa de bind/call/apply
+    "strictPropertyInitialization": true, // Propriedades de classe devem ser inicializadas
+    "noImplicitThis": true, // Erro para 'this' implícito
+    "alwaysStrict": true, // Gera 'use strict' em cada arquivo
+    "noImplicitReturns": true, // Erro se nem todos os caminhos retornam valor
+    "noFallthroughCasesInSwitch": true, // Erro para cases sem break em switch
+    "noUncheckedIndexedAccess": true, // Verificação rigorosa de acesso por índice
+
+    // === Verificações Adicionais ===
+    "noUnusedLocals": true, // Erro para variáveis locais não utilizadas
+    "noUnusedParameters": true, // Erro para parâmetros não utilizados
+    "exactOptionalPropertyTypes": true, // Propriedades opcionais exatas
+    "noImplicitOverride": true, // Requer 'override' em métodos sobrescritos
+
+    // === Configurações de Saída ===
+    "declaration": true, // Gera arquivos .d.ts
+    "declarationMap": true, // Gera source maps para declarações
+    "sourceMap": true, // Gera source maps
+    "removeComments": true, // Remove comentários do código compilado
+    "noEmitOnError": false, // Não gera arquivos se houver erros
+    "preserveConstEnums": false, // Não preserva const enums
+    "newLine": "lf", // Tipo de quebra de linha (Unix)
+
+    // === Configurações Experimentais ===
+    "experimentalDecorators": true, // Suporte a decorators (para frameworks como NestJS)
+    "emitDecoratorMetadata": true, // Metadata para decorators
+
+    // === Configurações de Performance ===
+    "skipLibCheck": true, // Pula verificação de tipos de bibliotecas
+    "forceConsistentCasingInFileNames": true, // Força consistência em nomes de arquivos
+    "incremental": true, // Compilação incremental para melhor performance
+    "tsBuildInfoFile": "./dist/.tsbuildinfo" // Arquivo de informações de build
+  },
+
+  // === Inclusões e Exclusões ===
+  "include": [
+    "src/**/*", // Inclui todos os arquivos em src/
+    "types/**/*" // Inclui definições de tipos customizadas
+  ],
+
+  "exclude": [
+    "node_modules", // Exclui node_modules
+    "dist", // Exclui pasta de build
+    "build", // Exclui pasta de build alternativa
+    "**/*.test.ts", // Exclui arquivos de teste
+    "**/*.spec.ts", // Exclui arquivos de spec
+    "coverage", // Exclui pasta de cobertura de testes
+    "jest.config.js", // Exclui configuração do Jest
+    "webpack.config.js", // Exclui configuração do Webpack
+    "rollup.config.js" // Exclui configuração do Rollup
+  ],
+
+  // === Configurações do TypeScript para projetos específicos ===
+  "ts-node": {
+    "esm": false, // Configuração para ts-node
+    "experimentalSpecifierResolution": "node",
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ES2022"
+    }
+  }
+}
