@@ -14,7 +14,7 @@ class UserController {
         .matches(/^[A-Za-z\s]+$/, "O nome deve conter apenas letras"),
       email: yup.string().email().required(),
       admin: yup.boolean(),
-      password: yup.string().required().min(10),
+      password: yup.string().required().min(6),
     });
 
     try {
@@ -23,7 +23,7 @@ class UserController {
       res.status(400).json({ err: err });
     }
 
-    const { name, email, admin, password } = req.body;
+    const { name, email, admin, password} = req.body;
 
     const findUser = await UserModel.findOne({
       where: {
@@ -50,7 +50,7 @@ class UserController {
         admin: admin,
       });
     } catch (err) {
-      res.status(404).send(console.log(err));
+      res.status(404).json({menssage: `Ocurred A error while signUp User ${err}`});
     }
   };
   index: RequestHandler = async (_, res) => {

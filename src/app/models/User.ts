@@ -31,8 +31,8 @@ class User extends Model<UserAtributes> {
         },
         name: DataTypes.STRING,
         email: DataTypes.STRING,
-        password: DataTypes.STRING,
-        password_hash: DataTypes.VIRTUAL,
+        password: DataTypes.VIRTUAL,
+        password_hash: DataTypes.STRING,
         admin: DataTypes.BOOLEAN,
         created_at: DataTypes.STRING,
         updated_at: DataTypes.STRING,
@@ -48,12 +48,12 @@ class User extends Model<UserAtributes> {
         user.password_hash = await bcrypt.hash(user.password, 10);
       }
     });
-    return this; 
+    return this;
   }
 
-  comparePassword (): Promise<Boolean> {
-    const passwordhash = bcrypt.compare(this.password, this.password_hash ?? "")
-    return passwordhash
+  comparePassword(): Promise<Boolean> {
+    const passwordhash = bcrypt.compare(this.password, this.password_hash);
+    return passwordhash;
   }
 }
-export default User
+export default User;
