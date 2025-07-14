@@ -1,18 +1,9 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 import * as bcrypt from "bcrypt";
 
-interface UserAtributes {
-  id: string;
-  name: string;
-  email: string;
-  password?: string;
-  password_hash?: string;
-  admin?: boolean;
-  created_at?: string;
-  updated_at?: string;
-}
 
-class User extends Model<UserAtributes> {
+
+class User extends Model {
   declare id: string;
   declare name: string;
   declare email: string;
@@ -53,8 +44,8 @@ class User extends Model<UserAtributes> {
     return this;
   }
 
-  comparePassword(): Promise<Boolean> {
-    const passwordhash = bcrypt.compare(this.password, this.password_hash);
+  comparePassword(password: typeof this.password): Promise<Boolean> {
+    const passwordhash = bcrypt.compare(password, this.password_hash);
     return passwordhash;
   }
 }

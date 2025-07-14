@@ -1,56 +1,42 @@
-import yup from "yup";
 import * as uuid from "uuid";
-import { RequestHandler } from "express";
+import e, { RequestHandler } from "express";
 import { UserModel } from "../../database/index";
+import { CreatedUser, UserCreatedSchema } from "../../dtos/dtos.user"
+import { UserService } from "../../service/user.service"
+import { UsersRepository } from "../../database/repository/user.repository"
 
-const datas = new Date();
 
 class UserController {
-  store: RequestHandler = async (req, res) => {
-    const Schema = yup.object({
-      name: yup
-        .string()
-        .strict(true)
-        .matches(/^[A-Za-z\s]+$/, "O nome deve conter apenas letras"),
-      email: yup.string().email().required(),
-      admin: yup.boolean(),
-      password: yup.string().required().min(6),
-    });
+  async store
+    (
+      req: e.Request<unknown, unknown, CreatedUser>,
+      res: e.Response,
+      _: e.NextFunction
+    ) {
+
+    const repository = new UsersRepository(UserModel)
+    const service = new UserService(repository)
 
     try {
-      Schema.validateSync(req.body, { abortEarly: false });
+      UserCreatedSchema.validateSync(req.body, { abortEarly: false })
     } catch (err) {
       res.status(400).json({ err: err });
     }
 
-    const { name, email, admin, password} = req.body;
+    const { name, email, admin, password } = req.body;
 
-    const findUser = await UserModel.findOne({
-      where: {
-        email,
-      },
-    });
-    if (findUser) {
-      res.status(400).json({ message: "Email already" });
-    }
     try {
-      const user = await UserModel.create({
-        id: uuid.v4(),
-        name: name,
-        email: email,
-        admin: admin,
-        password: password,
-        created_at: String(datas.toDateString()),
-        updated_at: String(datas.toDateString()),
-      });
+      const user = await service.store({name, email, admin, password})
+
       res.status(201).json({
         id: user.id,
         name: name,
         email: email,
         admin: admin,
       });
+
     } catch (err) {
-      res.status(404).json({menssage: `Ocurred A error while signUp User ${err}`});
+      res.status(404).json({ menssage: `Ocurred A error while signUp User ${err}` });
     }
   };
   index: RequestHandler = async (_, res) => {
@@ -67,11 +53,11 @@ class UserController {
       });
       res
         .status(200)
-        .json({ message: `User with id: ${req.params.id} he was deleted`});
+        .json({ message: `User with id: ${req.params.id} he was deleted` });
     } catch (err) {
       res
         .status(200)
-        .json({message: `Not he was possible delete User`})
+        .json({ message: `Not he was possible delete User` })
     }
   };
 }
