@@ -15,3 +15,47 @@ Backend APIs necessárias:
     Upload de imagens
     Sistema de likes/curtidas
     Filtros e busca de artigos
+
+
+
+
+descartados 
+
+
+//id: user?.id,
+    // email,
+    // password,
+    // admin: user?.admin,
+    // token: jwt.sign({ id: user.id }, auth.secret, {
+    //   expiresIn: '5d'
+    // })
+
+
+
+    // function EmailOrPasswordIncorrect(): Response {
+    //   return res
+    //     .status(401)
+    //     .json({ message: "Email Or Password Incorrect" })
+    // }
+
+    // if (!isValid) {
+    //   EmailOrPasswordIncorrect()
+    // }
+
+    // const user: string | any = await UserModel.findOne({
+    //   where: {
+    //     email,
+    //   }
+    // });
+
+    // if (!user) {
+    //   EmailOrPasswordIncorrect()
+    // }
+
+    // const IsSamePassword = await user.comparePassword(password)
+
+    // if (!IsSamePassword) {
+    //   EmailOrPasswordIncorrect()
+    // }
+
+    // const {email, password} = req.body

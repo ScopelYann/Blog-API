@@ -1,7 +1,7 @@
 import auth from "@/config/auth";
 import e from "express";
 import jwt from "jsonwebtoken"
-import { userInfo } from "os";
+
 
 interface CreateNewRequest extends e.Request {
     userInfo: string,

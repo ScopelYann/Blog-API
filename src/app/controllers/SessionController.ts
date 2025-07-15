@@ -1,12 +1,12 @@
-import { Response } from "express";
 import e from "express";
 import { UserModel } from "../../database/index";
 import { CreateDTOUser, createUserSchema } from "@/dtos/dtos.session";
-import auth from "@/config/auth";
-import * as jwt from "jsonwebtoken"
+import { AppError } from "../error/app.error";
+import { StatusCodes } from "http-status-codes";
+import { UsersRepository } from "@/database/repository/user.repository";
+import { SessionService } from "@/service/session.service";
 
 class SessionUser {
-
   async store(
     req: e.Request<unknown, unknown, CreateDTOUser>,
     res: e.Response,
@@ -14,52 +14,24 @@ class SessionUser {
   ) {
 
     const isValid = await createUserSchema.isValid(req.body)
+    const repository = new UsersRepository(UserModel)
+    const service = new SessionService(repository)
     const { email, password } = req.body;
 
-
-    function EmailOrPasswordIncorrect(): Response {
-      return res
-        .status(401)
-        .json({ message: "Email Or Password Incorrect" })
-    }
-
     if (!isValid) {
-      EmailOrPasswordIncorrect()
+      throw new AppError("Error", StatusCodes.BAD_REQUEST)
     }
 
-    const user: null | any = await UserModel.findOne({
-      where: {
-        email,
-      }
-    });
+    try {
 
-    if (!user) {
-      EmailOrPasswordIncorrect()
+      const user = await service.verific({ email, password })
+      res.status(StatusCodes.CREATED).json({ user })
+
+    } catch (err) {
+
+      throw new AppError(`error: ${err}`, StatusCodes.BAD_REQUEST)
+
     }
-
-    const IsSamePassword = await user.comparePassword(password)
-
-    if (!IsSamePassword) {
-      EmailOrPasswordIncorrect()
-    }
-
-    res
-      .status(201)
-      .json({
-        id: user?.id,
-        email,
-        password,
-        admin: user?.admin,
-        token: jwt.sign({ id: user.id }, auth.secret, {
-          expiresIn: '5d'
-        })
-      })
-
-
-
-
-    // const {email, password} = req.body
-
 
     /* Login 
      - criar schema Ok

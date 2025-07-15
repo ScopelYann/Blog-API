@@ -1,7 +1,5 @@
 import User from "@/app/models/User";
 import { UserEntity } from "../../entity/user.entity"
-import * as uuid from "uuid"
-
 
 export class UsersRepository {
     constructor(private model: typeof User) { }
@@ -27,4 +25,9 @@ export class UsersRepository {
 
         return findEmail?.toJSON<UserEntity>()
     }
+    async userCompare(email: string): Promise<User | undefined> {
+        const user = await this.model.findOne({ where: { email } })
+        return user ?? undefined
+    }
+
 } 

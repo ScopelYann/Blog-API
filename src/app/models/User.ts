@@ -7,7 +7,7 @@ class User extends Model {
   declare id: string;
   declare name: string;
   declare email: string;
-  declare password?: string | any;
+  declare password: string;
   declare password_hash: string;
   declare admin?: boolean;
   declare created_at: string;
