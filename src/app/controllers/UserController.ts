@@ -1,4 +1,3 @@
-import * as uuid from "uuid";
 import e, { RequestHandler } from "express";
 import { UserModel } from "../../database/index";
 import { CreatedUser, UserCreatedSchema } from "../../dtos/dtos.user"
@@ -26,7 +25,7 @@ class UserController {
     const { name, email, admin, password } = req.body;
 
     try {
-      const user = await service.store({name, email, admin, password})
+      const user = await service.store({ name, email, admin, password })
 
       res.status(201).json({
         id: user.id,
@@ -42,23 +41,6 @@ class UserController {
   index: RequestHandler = async (_, res) => {
     const findAllUsers = await UserModel.findAll();
     res.status(200).json(findAllUsers);
-  };
-
-  delete: RequestHandler = async (req, res) => {
-    try {
-      await UserModel.destroy({
-        where: {
-          id: req.params.id,
-        }
-      });
-      res
-        .status(200)
-        .json({ message: `User with id: ${req.params.id} he was deleted` });
-    } catch (err) {
-      res
-        .status(200)
-        .json({ message: `Not he was possible delete User` })
-    }
   };
 }
 export default new UserController();

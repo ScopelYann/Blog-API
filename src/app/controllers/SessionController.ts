@@ -14,8 +14,10 @@ class SessionUser {
   ) {
 
     const isValid = await createUserSchema.isValid(req.body)
+
     const repository = new UsersRepository(UserModel)
     const service = new SessionService(repository)
+
     const { email, password } = req.body;
 
     if (!isValid) {
@@ -24,24 +26,18 @@ class SessionUser {
 
     try {
 
+      //verificações e resposta com dados
       const user = await service.verific({ email, password })
-      res.status(StatusCodes.CREATED).json({ user })
+
+      res
+        .status(StatusCodes.CREATED)
+        .json(user) //resposta com dados de login
 
     } catch (err) {
 
       throw new AppError(`error: ${err}`, StatusCodes.BAD_REQUEST)
 
     }
-
-    /* Login 
-     - criar schema Ok
-     - validar com ValidateSync e Erro Ok
-     - validar/verificar se possui um email igual e validar senha - OK
-     - responder a requisição com as informações de registro Ok
-     - Fazer middlewaer jwt
-    */
-
-
   };
 }
 

@@ -1,7 +1,7 @@
 import e from "express";
 import yup from "yup"
 
-const UserRegisterDTO = {
+export const UserRegisterDTO = {
     name: yup
         .string()
         .strict(true)

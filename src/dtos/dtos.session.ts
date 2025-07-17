@@ -5,7 +5,7 @@ import * as yup from "yup"
 //     password: string
 // }
 
-const SchemaDTO = ({
+export const SchemaDTO = ({
     email: yup.string().email().required(),
     password: yup.string().required().min(6),
 });

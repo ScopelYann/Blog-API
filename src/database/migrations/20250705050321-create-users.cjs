@@ -2,9 +2,9 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable("users", {
-      id:{
+      id: {
         type: Sequelize.UUID,
         primaryKey: true,
         allowNull: null,
@@ -27,7 +27,11 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      created_at:{
+      avatar_url: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false
       },
@@ -38,8 +42,8 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
-     await queryInterface.dropTable('users');
-     
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('users');
+
   }
 };

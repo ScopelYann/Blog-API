@@ -1,13 +1,23 @@
-import {Router} from "express";
+import { Router } from "express";
 import UserController from "./app/controllers/UserController"
 import SessionController from "./app/controllers/SessionController"
+import { Validation } from "./middlewares/validator.middleware";
+import {UserRegisterDTO} from "./dtos/dtos.user"
+import {SchemaDTO} from "./dtos/dtos.session"
+import {ParamsType} from "./middlewares/validator.middleware"
 export const baseRoutes = Router();
 
 
 
 
-baseRoutes.post("/user", UserController.store)
-baseRoutes.post("/session", SessionController.store)
+baseRoutes.post("/user", Validation({
+    schema: UserRegisterDTO,
+    type: ParamsType.BODY
+}), UserController.store)
+baseRoutes.post("/session", Validation({
+    schema: SchemaDTO,
+    type: ParamsType.BODY
+}),SessionController.store)
 
 /*
     - Repository de Registro de Usuario completo(UserController) - OK
