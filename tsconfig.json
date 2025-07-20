@@ -2,7 +2,7 @@
   "compilerOptions": {
     // === Configurações Básicas ===
     "target": "ES2022", // Versão do JavaScript de saída (ES2022 para Node.js 16+)
-    "module": "CommonJS", // Sistema de módulos (CommonJS para Node.js)
+    "module": "esnext", // Sistema de módulos (CommonJS para Node.js)
     "lib": ["ES2022"], // APIs JavaScript disponíveis
     "outDir": "./dist", // Pasta de saída dos arquivos compilados
     "rootDir": "./src", // Pasta raiz dos arquivos TypeScript

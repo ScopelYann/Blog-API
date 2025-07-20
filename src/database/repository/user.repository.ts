@@ -4,7 +4,7 @@ import { UserEntity } from "../../entity/user.entity"
 export class UsersRepository {
     constructor(private model: typeof User) { }
 
-    async create({ id, name, email, password, admin, created_at, updated_at }: UserEntity): Promise<UserEntity> {
+    async create({ id, name, email, password, admin, created_at, updated_at, avatar_url }: UserEntity): Promise<UserEntity> {
         const createdUser = await this.model.create(
             {
                 id,
@@ -14,6 +14,7 @@ export class UsersRepository {
                 admin,
                 created_at,
                 updated_at,
+                avatar_url
             }
         )
 

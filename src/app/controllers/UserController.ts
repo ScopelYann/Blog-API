@@ -16,6 +16,7 @@ class UserController {
     const repository = new UsersRepository(UserModel)
     const service = new UserService(repository)
 
+
     try {
       UserCreatedSchema.validateSync(req.body, { abortEarly: false })
     } catch (err) {
@@ -23,16 +24,21 @@ class UserController {
     }
 
     const { name, email, admin, password } = req.body;
+    
+    const avatar_url: string | undefined = req.file?.filename
 
-    try {
-      const user = await service.store({ name, email, admin, password })
+    try {   
+      const user = await service.store({ name, email, admin, password }, {avatar_url})
 
       res.status(201).json({
         id: user.id,
         name: name,
         email: email,
         admin: admin,
+        avatar_url: avatar_url,
       });
+
+
 
     } catch (err) {
       res.status(404).json({ menssage: `Ocurred A error while signUp User ${err}` });

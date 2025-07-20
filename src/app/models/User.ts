@@ -12,6 +12,8 @@ class User extends Model {
   declare admin?: boolean;
   declare created_at: string;
   declare updated_at: string;
+  declare avatar_url: string;
+  declare url: string;
   static initialize(sequelize: Sequelize) {
     super.init(
       {
@@ -27,6 +29,13 @@ class User extends Model {
         admin: DataTypes.BOOLEAN,
         created_at: DataTypes.STRING,
         updated_at: DataTypes.STRING,
+        avatar_url: DataTypes.STRING,
+        url: {
+          type: DataTypes.VIRTUAL,
+          get(this: User) {
+            return `http://localhost:3200/avatar_url/${this.avatar_url}`
+          }
+        }
       },
       {
         sequelize,

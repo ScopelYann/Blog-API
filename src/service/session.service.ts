@@ -31,7 +31,7 @@ export class SessionService {
             const SignUp: SessionEntity = {
                 id: user.id,
                 email: user.email,
-                password: user.password,
+                password_hash: user.password,
                 admin: user.admin,
                 token: jwt.sign({ id: user.id }, auth.secret, { expiresIn: '5d' }),
             }

@@ -9,7 +9,7 @@ export const UserRegisterDTO = {
         .required(),
     email: yup.string().email().required(),
     admin: yup.boolean(),
-    password: yup.string().required().min(6),
+    password: yup.string().required().min(6)
 }
 
 export const UserCreatedSchema = yup.object(UserRegisterDTO)
