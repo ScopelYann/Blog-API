@@ -33,7 +33,7 @@ class User extends Model {
         url: {
           type: DataTypes.VIRTUAL,
           get(this: User) {
-            return `http://localhost:3200/avatar_url/${this.avatar_url}`
+            return `http://localhost:3000/avatar_url/${this.avatar_url}`
           }
         }
       },

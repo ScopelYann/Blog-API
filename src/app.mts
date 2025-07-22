@@ -1,6 +1,6 @@
 import e from "express";
 import cors from "cors"
-import {baseRoutes} from "./routes"
+import { baseRoutes } from "./routes"
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
@@ -14,7 +14,8 @@ app.use(cors())
 app.use(e.json())
 app.use(baseRoutes)
 
-app.use("/avatar_url", e.static(resolve(__dirname, "config" ,"uploads")))
+app.use("/avatar_url", e.static(resolve(__dirname, "config", "uploads")))
+app.use("/file-article", e.static(resolve(__dirname, "config", "uploads")))
 
 
 export default app

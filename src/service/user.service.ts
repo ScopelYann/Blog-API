@@ -2,7 +2,6 @@ import { UsersRepository } from "../database/repository/user.repository"
 import { UserEntity } from "../entity/user.entity"
 import { CreatedUser } from "../dtos/dtos.user"
 import * as uuid from "uuid"
-import e from "express"
 
 
 export class UserService {
